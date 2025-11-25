@@ -5,7 +5,7 @@ from io import BytesIO
 
 def main():
     # 设置页面标题和图标
-    st.title('单词题目生成工具')
+    st.markdown("<h2 style='font-size: 24px;'>kkoma的题目生成工具v1.0</h2>", unsafe_allow_html=True)
     
     # 文件上传
     uploaded_file = st.file_uploader(
