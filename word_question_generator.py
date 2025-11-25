@@ -76,10 +76,12 @@ def main():
         border: none !important;
         box-shadow: 0 6px 16px rgba(139, 0, 0, 0.5) !important;
         transition: all 0.3s ease !important;
-        z-index: 10 !important;
+        z-index: 999 !important;
         outline: none !important;
         font-family: 'Arial', sans-serif !important;
         cursor: pointer !important;
+        display: inline-block !important;
+        margin: 0 auto !important;
     }
     
     div.generate-button-container > div[data-testid="stButton"] > button:hover {
