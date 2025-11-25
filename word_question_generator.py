@@ -48,22 +48,22 @@ def main():
     
     /* 生成题目按钮 - 醒目样式 */
     .generate-button-container div[data-testid="stButton"] > button {
-        width: 450px !important;
-        background-color: #cc0000 !important;
+        width: 550px !important;
+        background-color: #8B0000 !important;
         color: white !important;
-        font-size: 18px !important;
+        font-size: 20px !important;
         font-weight: bold !important;
-        padding: 15px 30px !important;
-        border-radius: 10px !important;
+        padding: 18px 35px !important;
+        border-radius: 12px !important;
         border: none !important;
-        box-shadow: 0 4px 12px rgba(204, 0, 0, 0.4) !important;
+        box-shadow: 0 6px 16px rgba(139, 0, 0, 0.5) !important;
         transition: all 0.3s ease !important;
     }
     
     .generate-button-container div[data-testid="stButton"] > button:hover {
-        background-color: #990000 !important;
-        box-shadow: 0 6px 16px rgba(204, 0, 0, 0.5) !important;
-        transform: translateY(-2px) !important;
+        background-color: #6B0000 !important;
+        box-shadow: 0 8px 20px rgba(139, 0, 0, 0.6) !important;
+        transform: translateY(-3px) !important;
     }
     
     /* 查看单词列表按钮 - 白色背景样式 */
