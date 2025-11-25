@@ -46,7 +46,25 @@ def main():
         width: 100% !important;
     }
     
-    /* 生成题目按钮 - 醒目样式 */
+    /* 重置Streamlit默认按钮样式 */
+    div[data-testid="stButton"] button {
+        background-color: white !important;
+        color: #333333 !important;
+        font-size: 14px !important;
+        font-weight: normal !important;
+        padding: 8px 16px !important;
+        border-radius: 6px !important;
+        border: 1px solid #cccccc !important;
+        box-shadow: none !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    div[data-testid="stButton"] button:hover {
+        background-color: #f0f0f0 !important;
+        color: #333333 !important;
+    }
+    
+    /* 生成题目按钮 - 醒目样式（最高优先级） */
     div.generate-button-container > div[data-testid="stButton"] > button {
         width: 550px !important;
         background-color: #8B0000 !important;
@@ -59,6 +77,9 @@ def main():
         box-shadow: 0 6px 16px rgba(139, 0, 0, 0.5) !important;
         transition: all 0.3s ease !important;
         z-index: 10 !important;
+        outline: none !important;
+        font-family: 'Arial', sans-serif !important;
+        cursor: pointer !important;
     }
     
     div.generate-button-container > div[data-testid="stButton"] > button:hover {
@@ -67,24 +88,10 @@ def main():
         transform: translateY(-3px) !important;
     }
     
-    /* 查看单词列表按钮 - 白色背景样式 */
-    div[data-testid="stButton"] > button:not(.generate-button-container button) {
-        background-color: white !important;
-        color: #333333 !important;
-        font-size: 14px !important;
-        font-weight: normal !important;
-        padding: 8px 16px !important;
-        border-radius: 6px !important;
-        border: 1px solid #cccccc !important;
-        box-shadow: none !important;
-        transition: all 0.3s ease !important;
-    }
-    
-    div[data-testid="stButton"] > button:not(.generate-button-container button):hover {
-        background-color: #f5f5f5 !important;
-        border-color: #999999 !important;
-        box-shadow: none !important;
-        transform: none !important;
+    /* 针对特定按钮的更具体选择器，确保覆盖所有情况 */
+    div.generate-button-container > div[data-testid="stButton"] > button[kind="primary"] {
+        background-color: #8B0000 !important;
+        color: white !important;
     }
     
     /* 确保按钮文字居中 */
@@ -97,7 +104,7 @@ def main():
     
     # 使用容器包裹按钮实现居中
     st.markdown('<div class="generate-button-container">', unsafe_allow_html=True)
-    generate_button = st.button("生成题目")
+    generate_button = st.button("生成题目", key="generate_btn")
     st.markdown('</div>', unsafe_allow_html=True)
     
     # 初始化变量
