@@ -35,7 +35,7 @@ def main():
             label_visibility="collapsed"
         )
     
-    # 醒目按钮 - 居中并拉宽
+    # 按钮样式 - 居中并拉宽
     st.markdown("""
     <style>
     /* 确保容器占满整个宽度并居中 */
@@ -46,8 +46,8 @@ def main():
         width: 100% !important;
     }
     
-    /* 使用更具体的选择器来覆盖Streamlit默认样式 */
-    div[data-testid="stButton"] > button {
+    /* 生成题目按钮 - 醒目样式 */
+    .generate-button-container div[data-testid="stButton"] > button {
         width: 450px !important;
         background-color: #cc0000 !important;
         color: white !important;
@@ -60,10 +60,30 @@ def main():
         transition: all 0.3s ease !important;
     }
     
-    div[data-testid="stButton"] > button:hover {
+    .generate-button-container div[data-testid="stButton"] > button:hover {
         background-color: #990000 !important;
         box-shadow: 0 6px 16px rgba(204, 0, 0, 0.5) !important;
         transform: translateY(-2px) !important;
+    }
+    
+    /* 查看单词列表按钮 - 白色背景样式 */
+    div[data-testid="stButton"] > button:not(.generate-button-container button) {
+        background-color: white !important;
+        color: #333333 !important;
+        font-size: 14px !important;
+        font-weight: normal !important;
+        padding: 8px 16px !important;
+        border-radius: 6px !important;
+        border: 1px solid #cccccc !important;
+        box-shadow: none !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    div[data-testid="stButton"] > button:not(.generate-button-container button):hover {
+        background-color: #f5f5f5 !important;
+        border-color: #999999 !important;
+        box-shadow: none !important;
+        transform: none !important;
     }
     
     /* 确保按钮文字居中 */
