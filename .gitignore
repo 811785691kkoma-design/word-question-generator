@@ -1,0 +1,26 @@
+# 虚拟环境
+.venv/
+venv/
+env/
+
+# 临时文件
+*.swp
+*.swo
+*~
+.DS_Store
+
+# 日志文件
+*.log
+
+# Excel文件
+*.xlsx
+*.xls
+
+# 生成的文件
+generated_questions.xlsx
+
+# IDE相关
+.idea/
+.vscode/
+*.pyc
+__pycache__/
