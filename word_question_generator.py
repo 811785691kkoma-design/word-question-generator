@@ -183,39 +183,34 @@ def generate_questions(df, question_count, option_count):
     word_count = len(words)
     
     # 创建结果数据框
-    columns = ['正确选项'] + [f'单词{i+1}' for i in range(option_count)]
+    columns = ['题干'] + [f'选项{j+1}' for j in range(option_count)] + ['正确选项']
     result_df = pd.DataFrame(columns=columns)
     
-    # 确保每个单词至少一次作为正确答案
-    # 先处理必须的次数
-    required_correct = words.copy()
-    random.shuffle(required_correct)
-    
-    # 然后处理剩余的题目
-    remaining_questions = max(question_count - len(required_correct), 0)
-    extra_correct = [random.choice(words) for _ in range(remaining_questions)]
-    
-    # 合并所有正确答案
-    all_correct = required_correct + extra_correct
-    
-    # 生成每组题目
+    # 生成题目
     for i in range(question_count):
-        correct_word = all_correct[i]
+        # 随机选择题干单词
+        question_word = random.choice(words)
         
         # 随机选择其他单词作为干扰项
-        other_words = [word for word in words if word != correct_word]
+        other_words = [word for word in words if word != question_word]
         random.shuffle(other_words)
         distractors = other_words[:option_count-1]
         
-        # 合并正确答案和干扰项，并随机排序
-        options = [correct_word] + distractors
+        # 合并题干单词和干扰项，并随机排序
+        options = [question_word] + distractors
         random.shuffle(options)
         
-        # 记录选项顺序
-        option_dict = {f'单词{j+1}': options[j] for j in range(option_count)}
+        # 确定正确选项的位置
+        correct_option_index = options.index(question_word) + 1
+        correct_option_text = f'选项{correct_option_index}'
+        
+        # 记录题目和选项
+        row = {'题干': question_word}
+        for j in range(option_count):
+            row[f'选项{j+1}'] = options[j]
+        row['正确选项'] = correct_option_text
         
         # 添加到结果数据框
-        row = {'正确选项': correct_word, **option_dict}
         result_df = result_df._append(row, ignore_index=True)
     
     return result_df
