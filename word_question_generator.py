@@ -186,13 +186,44 @@ def generate_questions(df, question_count, option_count):
     columns = ['题干'] + [f'选项{j+1}' for j in range(option_count)] + ['正确选项']
     result_df = pd.DataFrame(columns=columns)
     
-    # 生成题目
-    for i in range(question_count):
+    # 确保每个单词至少作为一次正确答案
+    # 先为每个单词生成一道题目
+    required_questions = []
+    words_copy = words.copy()
+    random.shuffle(words_copy)
+    
+    for word in words_copy:
+        # 随机选择其他单词作为干扰项
+        other_words = [w for w in words if w != word]
+        random.shuffle(other_words)
+        distractors = other_words[:option_count-1]
+        
+        # 合并题干单词和干扰项，并随机排序
+        options = [word] + distractors
+        random.shuffle(options)
+        
+        # 确定正确选项的位置
+        correct_option_index = options.index(word) + 1
+        correct_option_text = f'选项{correct_option_index}'
+        
+        # 记录题目
+        row = {'题干': word}
+        for j in range(option_count):
+            row[f'选项{j+1}'] = options[j]
+        row['正确选项'] = correct_option_text
+        
+        required_questions.append(row)
+    
+    # 如果需要更多题目，随机生成剩余题目
+    remaining_questions = max(question_count - word_count, 0)
+    additional_questions = []
+    
+    for i in range(remaining_questions):
         # 随机选择题干单词
         question_word = random.choice(words)
         
         # 随机选择其他单词作为干扰项
-        other_words = [word for word in words if word != question_word]
+        other_words = [w for w in words if w != question_word]
         random.shuffle(other_words)
         distractors = other_words[:option_count-1]
         
@@ -204,14 +235,22 @@ def generate_questions(df, question_count, option_count):
         correct_option_index = options.index(question_word) + 1
         correct_option_text = f'选项{correct_option_index}'
         
-        # 记录题目和选项
+        # 记录题目
         row = {'题干': question_word}
         for j in range(option_count):
             row[f'选项{j+1}'] = options[j]
         row['正确选项'] = correct_option_text
         
-        # 添加到结果数据框
-        result_df = result_df._append(row, ignore_index=True)
+        additional_questions.append(row)
+    
+    # 合并所有题目
+    all_questions = required_questions + additional_questions
+    
+    # 打乱题目的顺序
+    random.shuffle(all_questions)
+    
+    # 将题目转换为DataFrame
+    result_df = pd.DataFrame(all_questions, columns=columns)
     
     return result_df
 
